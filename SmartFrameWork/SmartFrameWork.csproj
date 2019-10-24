@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77FC3DCC-53E6-40F6-A03D-3BD48590D842}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartFrameWork</RootNamespace>
+    <AssemblyName>SmartFrameWork</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>smartFrameWorkKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Log4Net_Test\Log4Net_Test\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action\Action.cs" />
+    <Compile Include="Action\ConfigurationAction.cs" />
+    <Compile Include="Action\File\CaptureAction.cs" />
+    <Compile Include="Action\File\CaptureAllAction.cs" />
+    <Compile Include="Action\File\CloseAction.cs" />
+    <Compile Include="Action\File\ExitAction.cs" />
+    <Compile Include="Action\File\SaveAction.cs" />
+    <Compile Include="Action\File\SaveAllAction.cs" />
+    <Compile Include="Action\File\SaveAsAction.cs" />
+    <Compile Include="Action\Help\AboutAction.cs" />
+    <Compile Include="Action\Help\HelpAction.cs" />
+    <Compile Include="Action\Window\ArrangeIconAction.cs" />
+    <Compile Include="Action\Window\CascadeWindowAction.cs" />
+    <Compile Include="Action\Window\CloseAllAction.cs" />
+    <Compile Include="Action\Window\TileHWindowAction.cs" />
+    <Compile Include="Action\Window\TileVWindowAction.cs" />
+    <Compile Include="Action\Window\WindowMDIAction.cs" />
+    <Compile Include="Action\Window\WindowTabbedAction.cs" />
+    <Compile Include="Attribute\TextAttribute.cs" />
+    <Compile Include="CoreException.cs" />
+    <Compile Include="CoreStartup.cs" />
+    <Compile Include="FrameWindow\FrameWorkEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameWindow\FrameWorkEditor.Designer.cs">
+      <DependentUpon>FrameWorkEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameWindow\WorkspaceWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\FileUtility\FileNameEventHandler.cs" />
+    <Compile Include="Services\FileUtility\FileUtility.cs" />
+    <Compile Include="Services\LoggingService\DebugTextWriter.cs" />
+    <Compile Include="Services\MessageService\MessageBoxMessageService.cs" />
+    <Compile Include="Services\PropertyService\Properties.cs" />
+    <Compile Include="Services\PropertyService\PropertyChangedEvent.cs" />
+    <Compile Include="Services\PropertyService\PropertyService.cs" />
+    <Compile Include="Services\ResourceService\ResourceService.cs" />
+    <Compile Include="Utils\CallbackOnDispose.cs" />
+    <Compile Include="Utils\ControlSetting.cs" />
+    <Compile Include="Utils\FormLocationHelper.cs" />
+    <Compile Include="Utils\XMLParser.cs" />
+    <Compile Include="Utils\XmlSerializer.cs" />
+    <Compile Include="Views\ConsoleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ConsoleView.designer.cs">
+      <DependentUpon>ConsoleView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FrameWorkView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\FrameWorkView.Designer.cs">
+      <DependentUpon>FrameWorkView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameWindow\FrameWorkWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameWindow\FrameWorkWindow.Designer.cs">
+      <DependentUpon>FrameWorkWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameWindow\FullScreenWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrameWindow\FullScreenWindow.Designer.cs">
+      <DependentUpon>FullScreenWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameWindow\PlatForm.cs" />
+    <Compile Include="FrameWindow\Workspace.cs" />
+    <Compile Include="Project\Project.cs" />
+    <Compile Include="Services\LoggingService\Log4NetService.cs" />
+    <Compile Include="Services\LoggingService\TextWriterLoggingService.cs" />
+    <Compile Include="Services\LoggingService\ILoggingService.cs" />
+    <Compile Include="Services\LoggingService\LoggingService.cs" />
+    <Compile Include="Services\MessageService\MessageService.cs" />
+    <Compile Include="Services\MessageService\TextWriterMessageService.cs" />
+    <Compile Include="Services\MessageService\IMessageService.cs" />
+    <Compile Include="Services\ServiceManager.cs" />
+    <Compile Include="Services\ServiceNotFoundException.cs" />
+    <Compile Include="Services\StringParser\IStringTagProvider.cs" />
+    <Compile Include="Services\StringParser\PropertyObjectTagProvider.cs" />
+    <Compile Include="Services\StringParser\StringParser.cs" />
+    <Compile Include="Utils\MicroStopwatch.cs" />
+    <Compile Include="Utils\Observable.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
+    <Compile Include="Views\Console.cs" />
+    <Compile Include="Views\IViewCreator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\NavigationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NavigationView.Designer.cs">
+      <DependentUpon>NavigationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrameWindow\FrameWorkEditor.resx">
+      <DependentUpon>FrameWorkEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameWindow\FullScreenWindow.resx">
+      <DependentUpon>FullScreenWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ConsoleView.resx">
+      <DependentUpon>ConsoleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FrameWorkView.resx">
+      <DependentUpon>FrameWorkView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrameWindow\FrameWorkWindow.resx">
+      <DependentUpon>FrameWorkWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\console.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\cascade.png" />
+    <EmbeddedResource Include="icons\help.png" />
+    <EmbeddedResource Include="icons\open.png" />
+    <EmbeddedResource Include="icons\saveall.png" />
+    <EmbeddedResource Include="icons\saveas.png" />
+    <EmbeddedResource Include="icons\savefile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Action\View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="smartFrameWorkKey.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
