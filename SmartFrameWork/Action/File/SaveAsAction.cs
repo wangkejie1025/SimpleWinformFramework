@@ -28,7 +28,7 @@ namespace SmartFrameWork
             return false;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             try
             {

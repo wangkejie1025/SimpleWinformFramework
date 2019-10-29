@@ -16,7 +16,7 @@ namespace SmartFrameWork
         }
 
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             //ConfigDialog dlg = new ConfigDialog();
             //dlg.Config = ConfigManager.GetConfig(configFile);

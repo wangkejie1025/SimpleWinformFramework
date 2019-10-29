@@ -13,7 +13,7 @@ namespace SmartFrameWork
         string propertiesName;
         string configDirectory;
         string dataDirectory;
-        string applicationName;
+        readonly string applicationName;
 
         /// <summary>
         /// Sets the name used for the properties (only name, without path or extension).
@@ -67,12 +67,10 @@ namespace SmartFrameWork
         }
         public CoreStartup(string applicationName)
         {
-            if (applicationName == null)
-                throw new ArgumentNullException("applicationName");
-            this.applicationName = applicationName;
+            this.applicationName = applicationName?? throw new ArgumentNullException("applicationName");
             //如果不设值propertiesName属性就会设置为applicationName + "Properties"，propertiesName是xml文件的根目录
             //propertiesName = applicationName + "Properties";
-            MessageService.DefaultMessageBoxTitle = applicationName;
+            MessageService.DefaultMessageBoxTitle = this.applicationName;
         }
         public void StartCoreServices()
         {

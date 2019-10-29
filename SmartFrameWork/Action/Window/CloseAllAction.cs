@@ -16,7 +16,7 @@ namespace SmartFrameWork
         {
             this.Text = name;
         }
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             context.Window.CloseAll();
         }

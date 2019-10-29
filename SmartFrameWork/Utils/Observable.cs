@@ -61,8 +61,6 @@ namespace SmartFrameWork.Utils
             }
         }
 
-
-
         private object tag;
         [System.ComponentModel.Browsable(false)]
         [System.Xml.Serialization.XmlIgnore]

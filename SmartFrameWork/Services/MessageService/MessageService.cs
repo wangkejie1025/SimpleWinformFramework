@@ -81,7 +81,7 @@ namespace SmartFrameWork.Services
         public static void ShowException(Exception ex, string message)
         {
             LoggingService.Error(message, ex);
-            LoggingService.Warn("Stack trace of last exception log:\n" + Environment.StackTrace);
+            // LoggingService.Warn("Stack trace of last exception log:\n" + Environment.StackTrace);
             ServiceManager.Instance.MessageService.ShowException(ex, message);
         }
 

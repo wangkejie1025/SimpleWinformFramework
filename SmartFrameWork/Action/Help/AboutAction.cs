@@ -20,7 +20,7 @@ namespace SmartFrameWork
             this.BeginGroup = true;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             //AboutDialog dlg = new AboutDialog();
             //dlg.ShowDialog();

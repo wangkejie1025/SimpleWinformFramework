@@ -13,7 +13,7 @@ using SmartFrameWork.Services;
 
 namespace SmartFrameWork
 {
-    //父窗体，保存上下文信息
+    //父窗体，所有FrameWorkEditor，保存上下文信息
     public partial class FrameWorkWindow : DevExpress.XtraEditors.XtraForm
     {    
         private Workspace workspace = new Workspace();
@@ -23,7 +23,7 @@ namespace SmartFrameWork
             set { workspace = value; }
         }
 
-        public WindowSytle windowStyle
+        public WindowSytle WindowStyle
         {
             set
             {
@@ -114,7 +114,9 @@ namespace SmartFrameWork
         {
             ActionContext context = new ActionContext();
             context.Window = this;
-            //实现了ISelectable接口的对象说明是可以被选中的，获取当前被选中的对象
+            //实现了ISelectable接口的对象说明是可以被选中的，获取当前被选中的对象，并且会触发selectChange事件
+            //is检查一个对象是否兼容于指定的类型，并返回一个Boolean值
+            //as会进行类型转换，如果转换失败则会返回null
             context.Selection = SelectionManager.Selection as ISelectable;
             //返回上限文信息
             return context;
@@ -165,7 +167,7 @@ namespace SmartFrameWork
                 {
                     Action action = (Action)barItem.Tag;
                     ActionContext context = GetActionContext();
-                    action.excuete(context);
+                    action.Excuete(context);
                     this.ValidateAction();
                 }
             }
@@ -309,14 +311,6 @@ namespace SmartFrameWork
                         item.Caption = StringUtils.GetString(action.GetType(), action.Text);
                         item.Enabled = action.IsEnable(context);
                         item.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
-                        //if (!action.VisiblityOnDisable && !item.Enabled)
-                        //{
-                        //    link.Visible = false;
-                        //}
-                        //else
-                        //{
-                        //    link.Visible = true;
-                        //}
                     }
                 }
             }
@@ -332,7 +326,7 @@ namespace SmartFrameWork
                     Action action = (Action)barItem.Tag;
                     ActionContext context = GetActionContext();
                     context.Source = barItem;
-                    action.excuete(context);
+                    action.Excuete(context);
                     this.ValidateAction();
                 }
             }
@@ -382,7 +376,7 @@ namespace SmartFrameWork
             return -1;
         }
         //工具栏
-        public void AddActionGroup(ActionGroup actionGroup)
+        public void AddToolBarGroup(ActionGroup actionGroup)
         {
             DevExpress.XtraBars.Bar bar = new DevExpress.XtraBars.Bar();
             bar.BarName = actionGroup.Text;
@@ -390,7 +384,7 @@ namespace SmartFrameWork
             bar.DockRow = 1;
             bar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
 
-            bar.Offset = 66;
+            //bar.Offset = 66;
             bar.OptionsBar.AllowRename = true;
             bar.Text = actionGroup.Text;
 
@@ -463,7 +457,7 @@ namespace SmartFrameWork
                 views.Add(view.Name, view);
                 dockManager.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] { dockPanel });
             }
-            else
+            else// 当前的DockStyle已经存在View
             {
                 DevExpress.XtraBars.Docking.DockPanel containerPanel;
 
@@ -680,7 +674,7 @@ namespace SmartFrameWork
             if (LoadAction != null)
             {
                 ActionContext context = GetActionContext();
-                LoadAction.excuete(context);
+                LoadAction.Excuete(context);
             }
         }
         private void FrameWorkWindow_Shown(object sender, EventArgs e)
@@ -698,7 +692,7 @@ namespace SmartFrameWork
             if (ExitAction != null)
             {
                 ActionContext context = GetActionContext();
-                ExitAction.excuete(context);
+                ExitAction.Excuete(context);
             }
         }
         private void FrameWorkWindow_MdiChildActivate(object sender, EventArgs e)

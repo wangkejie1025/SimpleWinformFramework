@@ -138,19 +138,19 @@ namespace SmartFrameWork
             set { errorMessage = value; }
         }
 
-        MicroStopwatch watch = new MicroStopwatch();
+       readonly MicroStopwatch watch = new MicroStopwatch();
 
 
-        public void excuete(ActionContext context)
+        public void Excuete(ActionContext context)
         {
             watch.Reset();
             watch.Start();
-            perform(context);
+            Perform(context);
             watch.Stop();
             //SmartFrameWork.Console.WriteLine(string.Format("Action {0} takes {1} Microseconds", this.Text, watch.ElapsedMicroseconds));
         }
 
-        public virtual void perform(ActionContext context) { }
+        public virtual void Perform(ActionContext context) { }
 
         public virtual bool IsEnable(ActionContext context) { return true; }
     }
@@ -231,7 +231,7 @@ namespace SmartFrameWork
             this.Icon = icon;
         }
 
-        private List<Action> items = new List<Action>();
+       readonly private List<Action> items = new List<Action>();
         public List<Action> Items
         {
             get { return items; }
@@ -273,7 +273,7 @@ namespace SmartFrameWork
             return System.IO.File.Exists(fullPath);
         }
 
-        public override void perform(ActionContext context)
+        public override void Perform(ActionContext context)
         {
             string fullPath = string.Format("{0}\\{1}", System.Windows.Forms.Application.StartupPath, command);
             System.Diagnostics.Process.Start(fullPath);

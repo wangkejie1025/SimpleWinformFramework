@@ -21,7 +21,7 @@ namespace SmartFrameWork
             this.Icon = "savefile.png";
             this.ShortCut = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
         }
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             try
             {

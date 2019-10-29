@@ -141,7 +141,7 @@ namespace SmartFrameWork
                 {
                     if (action.IsEnable(context))
                     {
-                        action.excuete(context);
+                        action.Excuete(context);
                         window.ValidateAction();
                         isTriggered = true;
                     }
@@ -223,7 +223,7 @@ namespace SmartFrameWork
                 {
                     ActionContext context = GetActionContext(window.GetActionContext());
                     context.Selection = SelectedItem;
-                    action.excuete(context);
+                    action.Excuete(context);
                     window.ValidateAction();
                 }
                 catch (Exception ex)

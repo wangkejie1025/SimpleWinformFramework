@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartFrameWork</RootNamespace>
     <AssemblyName>SmartFrameWork</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -64,6 +67,7 @@
     <Compile Include="Action\File\CaptureAllAction.cs" />
     <Compile Include="Action\File\CloseAction.cs" />
     <Compile Include="Action\File\ExitAction.cs" />
+    <Compile Include="Action\File\OpenFileAction.cs" />
     <Compile Include="Action\File\SaveAction.cs" />
     <Compile Include="Action\File\SaveAllAction.cs" />
     <Compile Include="Action\File\SaveAsAction.cs" />
@@ -178,7 +182,7 @@
   <ItemGroup>
     <EmbeddedResource Include="icons\cascade.png" />
     <EmbeddedResource Include="icons\help.png" />
-    <EmbeddedResource Include="icons\open.png" />
+    <EmbeddedResource Include="icons\openfile.png" />
     <EmbeddedResource Include="icons\saveall.png" />
     <EmbeddedResource Include="icons\saveas.png" />
     <EmbeddedResource Include="icons\savefile.png" />

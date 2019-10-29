@@ -13,7 +13,7 @@ namespace myFormsApplication.Action
         {
             this.Text = "LoadMainForm";
         }
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             try
             {

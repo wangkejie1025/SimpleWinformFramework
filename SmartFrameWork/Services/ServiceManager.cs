@@ -84,10 +84,8 @@ namespace SmartFrameWork.Services
     {
 #if DEBUG
         static ILoggingService loggingService = new TextWriterLoggingService(new DebugTextWriter());    
-        //static IMessageService messageService = new TextWriterMessageService(System.Console.Out);  
 #else 
         static ILoggingService loggingService = new Log4NetService();
-        //static IMessageService messageService = new MessageBoxMessageService();
 #endif
         static IMessageService messageService = new MessageBoxMessageService();
         public override ILoggingService LoggingService

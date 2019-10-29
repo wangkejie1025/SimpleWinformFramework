@@ -19,7 +19,7 @@ namespace SmartFrameWork
             //this.Icon = "help.png";
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             //StartupEditor editor = new StartupEditor();
             //editor.MdiParent = context.Window;
@@ -39,7 +39,7 @@ namespace SmartFrameWork
             this.Text = text;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
         }
     }
@@ -57,7 +57,7 @@ namespace SmartFrameWork
             this.BeginGroup = true;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
         }
     }

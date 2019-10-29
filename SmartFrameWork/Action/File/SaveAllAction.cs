@@ -25,7 +25,7 @@ namespace SmartFrameWork
             return context.Window.GetActiveEditor() != null;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             try
             {

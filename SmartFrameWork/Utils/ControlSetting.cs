@@ -17,7 +17,7 @@ namespace SmartFrameWork.Utils
             gridView.OptionsView.ColumnAutoWidth = false;
             gridView.OptionsView.ShowGroupPanel = false;
         }
-        public static void bindingPortName(System.Windows.Forms.ComboBox comboBox)
+        public static void BindingPortName(System.Windows.Forms.ComboBox comboBox)
         {
             RegistryKey keyCom = Registry.LocalMachine.OpenSubKey(@"Hardware\DeviceMap\SerialComm");
             if (keyCom != null)
@@ -33,6 +33,7 @@ namespace SmartFrameWork.Utils
         }
         public static string[] GetCOMPortName()
         {
+            //string[] ports = System.IO.Ports.SerialPort.GetPortNames();
             RegistryKey keyCom = Registry.LocalMachine.OpenSubKey(@"Hardware\DeviceMap\SerialComm");
             if (keyCom != null)
             {

@@ -11,7 +11,7 @@ namespace SmartFrameWork
         {
             this.Text = "&Close";
             this.ShortCut = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C;
-            this.BeginGroup = true;
+            //this.BeginGroup = true;
         }
 
         public CloseAction(string text)
@@ -24,7 +24,7 @@ namespace SmartFrameWork
             return context.Window.GetActiveEditor() != null;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             if (context.Window.GetActiveEditor() != null)
             {

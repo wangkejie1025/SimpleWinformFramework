@@ -16,9 +16,7 @@ namespace SmartFrameWork.Utils
 
         public CallbackOnDispose(System.Action callback)
         {
-            if (callback == null)
-                throw new ArgumentNullException("callback");
-            this.callback = callback;
+            this.callback = callback?? throw new ArgumentNullException(nameof(callback));
         }
 
         public void Dispose()

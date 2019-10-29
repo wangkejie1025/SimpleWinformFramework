@@ -18,7 +18,7 @@ namespace SmartFrameWork
             this.Text = str;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(SmartFrameWork.ActionContext context)
         {
             context.Window.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
         }

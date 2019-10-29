@@ -29,7 +29,7 @@ namespace SmartFrameWork
             return false;
         }
 
-        public override void perform(SmartFrameWork.ActionContext context)
+        public override void Perform(ActionContext context)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                SmartFrameWork.Services.MessageService.ShowException( ex,"Fail to save file");
+                Services.MessageService.ShowException( ex,"Fail to save file");
             }
         }
     }
