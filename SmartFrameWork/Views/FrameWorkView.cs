@@ -44,7 +44,12 @@ namespace SmartFrameWork
                 }
             }
         }
-
+        private bool toolBarVisible;
+        public bool ToolBarVisible
+        {
+            get { return toolBarVisible; }
+            set { toolBarVisible = value; barManager.Bars["Main toolbar"].Visible = toolBarVisible; }
+        }
         public int GetIconIndex(Type type, string icon)
         {
             //嵌入的资源最后的命名空间就是程序集的名称+文件夹名称+文件名
@@ -165,7 +170,6 @@ namespace SmartFrameWork
             get { return contextAction; }
             set { contextAction = value; }
         }
-
         protected void BuildSubMenu(BarSubItem barSubItem, ActionGroup group)
         {
             foreach (Action action in group.Items)

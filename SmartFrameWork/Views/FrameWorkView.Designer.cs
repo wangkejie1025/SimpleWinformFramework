@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.barManager = new DevExpress.XtraBars.BarManager(this.components);
-            this.bar2 = new DevExpress.XtraBars.Bar();
+            this.toolBar = new DevExpress.XtraBars.Bar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -44,24 +44,24 @@
             // barManager
             // 
             this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            this.bar2});
+            this.toolBar});
             this.barManager.DockControls.Add(this.barDockControlTop);
             this.barManager.DockControls.Add(this.barDockControlBottom);
             this.barManager.DockControls.Add(this.barDockControlLeft);
             this.barManager.DockControls.Add(this.barDockControlRight);
             this.barManager.Form = this;
-            this.barManager.MainMenu = this.bar2;
+            this.barManager.MainMenu = this.toolBar;
             this.barManager.MaxItemId = 0;
             // 
-            // bar2
+            // toolBar
             // 
-            this.bar2.BarName = "Main menu";
-            this.bar2.DockCol = 0;
-            this.bar2.DockRow = 0;
-            this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            this.bar2.OptionsBar.MultiLine = true;
-            this.bar2.OptionsBar.UseWholeRow = true;
-            this.bar2.Text = "Main menu";
+            this.toolBar.BarName = "Main toolbar";
+            this.toolBar.DockCol = 0;
+            this.toolBar.DockRow = 0;
+            this.toolBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            this.toolBar.OptionsBar.MultiLine = true;
+            this.toolBar.OptionsBar.UseWholeRow = true;
+            this.toolBar.Text = "Main menu";
             // 
             // barDockControlTop
             // 
@@ -118,14 +118,13 @@
         }
 
         #endregion
-
-        private DevExpress.XtraBars.BarManager barManager;
-        private DevExpress.XtraBars.Bar bar2;
+        private DevExpress.XtraBars.Bar toolBar;
         private DevExpress.XtraBars.BarDockControl barDockControlTop;
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private System.Windows.Forms.ImageList imageList;
         private DevExpress.XtraBars.PopupMenu ctxMenu;
+        protected DevExpress.XtraBars.BarManager barManager;
     }
 }

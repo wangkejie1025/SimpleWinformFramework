@@ -29,8 +29,8 @@ namespace SmartFrameWork.Views
         public ConsoleView()
         {
             InitializeComponent();
+            ToolBarVisible = false;
         }
-
         private void barClear_Click(object sender, EventArgs e)
         {
             this.textBox.Text = "";

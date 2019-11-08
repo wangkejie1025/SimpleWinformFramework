@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
 using DevExpress.XtraBars;
 using SmartFrameWork.Utils;
 using SmartFrameWork.Services;
+using SmartFrameWork.Project;
 
 
 namespace SmartFrameWork
@@ -112,12 +109,14 @@ namespace SmartFrameWork
 
         public virtual ActionContext GetActionContext()
         {
-            ActionContext context = new ActionContext();
-            context.Window = this;
-            //实现了ISelectable接口的对象说明是可以被选中的，获取当前被选中的对象，并且会触发selectChange事件
-            //is检查一个对象是否兼容于指定的类型，并返回一个Boolean值
-            //as会进行类型转换，如果转换失败则会返回null
-            context.Selection = SelectionManager.Selection as ISelectable;
+            ActionContext context = new ActionContext
+            {
+                Window = this,
+                //实现了ISelectable接口的对象说明是可以被选中的，获取当前被选中的对象，并且会触发selectChange事件
+                //is检查一个对象是否兼容于指定的类型，并返回一个Boolean值
+                //as会进行类型转换，如果转换失败则会返回null
+                Selection = SelectionManager.Selection as ISelectable
+            };
             //返回上限文信息
             return context;
         }
@@ -189,10 +188,12 @@ namespace SmartFrameWork
             {
                 if (action is SmartFrameWork.ActionGroup)
                 {
-                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem();
-                    viewbarItem.Caption = StringUtils.GetString(action.GetType(), action.Text);
-                    viewbarItem.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
-                    viewbarItem.Tag = action;
+                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem
+                    {
+                        Caption = StringUtils.GetString(action.GetType(), action.Text),
+                        ImageIndex = GetIconIndex(action.GetType(), action.Icon),
+                        Tag = action
+                    };
                     menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
                     new DevExpress.XtraBars.LinkPersistInfo(viewbarItem,action.BeginGroup)});
                     this.barManager.Items.Add(viewbarItem);
@@ -204,11 +205,13 @@ namespace SmartFrameWork
                 else if (action is SmartFrameWork.MdiListAction)
                 {
                     //新建所有Mdi子窗体的baritem对象
-                    DevExpress.XtraBars.BarMdiChildrenListItem baritem = new DevExpress.XtraBars.BarMdiChildrenListItem();
-                    //对于Action的text和image没有要求，获得的是子窗体的icon和text
-                    baritem.Caption = StringUtils.GetString(action.GetType(), action.Text);
-                    baritem.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
-                    baritem.Name = action.Text;
+                    DevExpress.XtraBars.BarMdiChildrenListItem baritem = new DevExpress.XtraBars.BarMdiChildrenListItem
+                    {
+                        //对于Action的text和image没有要求，获得的是子窗体的icon和text
+                        Caption = StringUtils.GetString(action.GetType(), action.Text),
+                        ImageIndex = GetIconIndex(action.GetType(), action.Icon),
+                        Name = action.Text
+                    };
                     //this properity is useless when the child has icon
                     //baritem.ShowChecks = true;
                     menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
@@ -222,11 +225,13 @@ namespace SmartFrameWork
                     bool begingroup = false;
                     foreach (IViewCreator creator in viewCreators.Values)
                     {
-                        DevExpress.XtraBars.BarButtonItem viewbarItem = new DevExpress.XtraBars.BarButtonItem();
-                        viewbarItem.Caption = creator.Name;
-                        viewbarItem.Name = creator.Name;
-                        viewbarItem.Enabled = true;
-                        viewbarItem.ImageIndex = GetIconIndex(creator.GetType(), creator.Icon);
+                        DevExpress.XtraBars.BarButtonItem viewbarItem = new DevExpress.XtraBars.BarButtonItem
+                        {
+                            Caption = creator.Name,
+                            Name = creator.Name,
+                            Enabled = true,
+                            ImageIndex = GetIconIndex(creator.GetType(), creator.Icon)
+                        };
                         menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
                     new DevExpress.XtraBars.LinkPersistInfo(viewbarItem,begingroup)});
                         viewbarItem.Tag = creator;
@@ -235,48 +240,56 @@ namespace SmartFrameWork
                         this.barManager.Items.Add(viewbarItem);
                     }
                 }
-                else if (action is SmartFrameWork.RecentProjectsAction)
+                else if (action is RecentProjectsAction)
                 {
-                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem();
-                    viewbarItem.Caption = StringUtils.GetString(action.GetType(), action.Text);
-                    menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-                    new DevExpress.XtraBars.LinkPersistInfo(viewbarItem,action.BeginGroup)});
+                    BarSubItem viewbarItem = new BarSubItem
+                    {
+                        Caption = StringUtils.GetString(action.GetType(), action.Text)
+                    };
+                    menu.LinksPersistInfo.AddRange(new LinkPersistInfo[] {
+                    new LinkPersistInfo(viewbarItem,action.BeginGroup)});
                     viewbarItem.Tag = action;
                     viewbarItem.Popup += new EventHandler(Menu_Popup);
                     this.barManager.Items.Add(viewbarItem);
-                    SmartFrameWork.RecentProjectsAction recentAction = action as SmartFrameWork.RecentProjectsAction;
+                    RecentProjectsAction recentAction = action as RecentProjectsAction;
                     for (int i = 0; i < 10; i++)
                     {
-                        BarButtonItem baritemRecentProject = new BarButtonItem();
-                        baritemRecentProject.Caption = action.Text;
-                        baritemRecentProject.Tag = recentAction.OpenAction;
+                        BarButtonItem baritemRecentProject = new BarButtonItem
+                        {
+                            Caption = action.Text,
+                            Tag = recentAction.OpenAction
+                        };
                         viewbarItem.LinksPersistInfo.Add(new LinkPersistInfo(baritemRecentProject));
                         baritemRecentProject.ItemClick += new ItemClickEventHandler(baritemRecentProject_ItemClick);
                         this.barManager.Items.Add(baritemRecentProject);
                     }
                 }
-                else if (action is SmartFrameWork.RecentFilesAction)
+                else if (action is RecentFilesAction)
                 {
-                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem();
-                    viewbarItem.Caption = StringUtils.GetString(action.GetType(), action.Text);
-                    menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-                    new DevExpress.XtraBars.LinkPersistInfo(viewbarItem,action.BeginGroup)});
+                    BarSubItem viewbarItem = new BarSubItem
+                    {
+                        Caption = StringUtils.GetString(action.GetType(), action.Text)
+                    };
+                    menu.LinksPersistInfo.AddRange(new LinkPersistInfo[] {
+                    new LinkPersistInfo(viewbarItem,action.BeginGroup)});
                     viewbarItem.Tag = action;
-                    viewbarItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(viewbarItem_ItemClick);
+                    viewbarItem.ItemClick += new ItemClickEventHandler(viewbarItem_ItemClick);
                     this.barManager.Items.Add(viewbarItem);
                 }
                 else
                 {
-                    DevExpress.XtraBars.BarButtonItem baritem = new DevExpress.XtraBars.BarButtonItem();
-                    baritem.Caption = StringUtils.GetString(action.GetType(), action.Text);
-                    baritem.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
-                    baritem.Name = action.Text;
-                    baritem.Enabled = true;
-                    baritem.ItemShortcut = new DevExpress.XtraBars.BarShortcut(action.ShortCut);
-                    menu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-                    new DevExpress.XtraBars.LinkPersistInfo(baritem,action.BeginGroup)});
+                    BarButtonItem baritem = new BarButtonItem
+                    {
+                        Caption = StringUtils.GetString(action.GetType(), action.Text),
+                        ImageIndex = GetIconIndex(action.GetType(), action.Icon),
+                        Name = action.Text,
+                        Enabled = true,
+                        ItemShortcut = new BarShortcut(action.ShortCut)
+                    };
+                    menu.LinksPersistInfo.AddRange(new LinkPersistInfo[] {
+                    new LinkPersistInfo(baritem,action.BeginGroup)});
                     baritem.Tag = action;
-                    baritem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(barItem_ItemClick);
+                    baritem.ItemClick += new ItemClickEventHandler(barItem_ItemClick);
                     this.barManager.Items.Add(baritem);
                 }
             }
@@ -285,14 +298,14 @@ namespace SmartFrameWork
         void Menu_Popup(object sender, EventArgs e)
         {
             ActionContext context = GetActionContext();
-            DevExpress.XtraBars.BarSubItem menu = sender as DevExpress.XtraBars.BarSubItem;
-            if (menu.Tag is SmartFrameWork.RecentProjectsAction)
+            BarSubItem menu = sender as BarSubItem;
+            if (menu.Tag is RecentProjectsAction)
             {
                 int i = 0;
-                for (i = 0; i < SmartFrameWork.ProjectManager.RecentProjects.Count && i < menu.ItemLinks.Count; i++)
+                for (i = 0; i < ProjectManager.RecentProjects.Count && i < menu.ItemLinks.Count; i++)
                 {
                     menu.ItemLinks[i].Visible = true;
-                    menu.ItemLinks[i].Caption = SmartFrameWork.ProjectManager.RecentProjects[i];
+                    menu.ItemLinks[i].Caption = ProjectManager.RecentProjects[i];
                 }
                 for (; i < menu.ItemLinks.Count; i++)
                 {
@@ -301,9 +314,9 @@ namespace SmartFrameWork
             }
             else
             {
-                foreach (DevExpress.XtraBars.BarItemLink link in menu.ItemLinks)
+                foreach (BarItemLink link in menu.ItemLinks)
                 {
-                    DevExpress.XtraBars.BarItem item = link.Item;
+                   BarItem item = link.Item;
                     if (item.Tag != null && item.Tag is Action)
                     {
                         Action action = item.Tag as Action;
@@ -332,7 +345,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                SmartFrameWork.Services.LoggingService.Error(ex);
+                LoggingService.Error(ex);
             }
         }
 
@@ -378,11 +391,13 @@ namespace SmartFrameWork
         //工具栏
         public void AddToolBarGroup(ActionGroup actionGroup)
         {
-            DevExpress.XtraBars.Bar bar = new DevExpress.XtraBars.Bar();
-            bar.BarName = actionGroup.Text;
-            bar.DockCol = actionGroup.Index;
-            bar.DockRow = 1;
-            bar.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            DevExpress.XtraBars.Bar bar = new DevExpress.XtraBars.Bar
+            {
+                BarName = actionGroup.Text,
+                DockCol = actionGroup.Index,
+                DockRow = 1,
+                DockStyle = DevExpress.XtraBars.BarDockStyle.Top
+            };
 
             //bar.Offset = 66;
             bar.OptionsBar.AllowRename = true;
@@ -392,9 +407,10 @@ namespace SmartFrameWork
             {
                 if (action is SmartFrameWork.ActionGroup)
                 {
-                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem();
-
-                    viewbarItem.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
+                    DevExpress.XtraBars.BarSubItem viewbarItem = new DevExpress.XtraBars.BarSubItem
+                    {
+                        ImageIndex = GetIconIndex(action.GetType(), action.Icon)
+                    };
 
                     AddMenuGroup(viewbarItem, action as ActionGroup);
 
@@ -408,10 +424,12 @@ namespace SmartFrameWork
                 }
                 else
                 {
-                    DevExpress.XtraBars.BarButtonItem barItem = new DevExpress.XtraBars.BarButtonItem();
-                    barItem.ImageIndex = GetIconIndex(action.GetType(), action.Icon);
-                    barItem.Caption = action.Text;
-                    barItem.Id = 1;
+                    DevExpress.XtraBars.BarButtonItem barItem = new DevExpress.XtraBars.BarButtonItem
+                    {
+                        ImageIndex = GetIconIndex(action.GetType(), action.Icon),
+                        Caption = action.Text,
+                        Id = 1
+                    };
                     if (action.Hint != null)
                     {
                         barItem.Hint = action.Hint;
@@ -542,7 +560,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                SmartFrameWork.Services.LoggingService.Error(ex);
+                LoggingService.Error(ex);
             }
             return null;
         }
@@ -579,8 +597,7 @@ namespace SmartFrameWork
 
         public FrameWorkEditor GetActiveEditor()
         {
-            FrameWorkEditor editor = this.ActiveMdiChild as FrameWorkEditor;
-            if (editor != null && !editor.IsClosed)
+            if (this.ActiveMdiChild is FrameWorkEditor editor && !editor.IsClosed)
             {
                 return editor;
             }
@@ -651,14 +668,14 @@ namespace SmartFrameWork
 
         public void CloseAll()
         {
-            foreach (System.Windows.Forms.Form form in this.MdiChildren)
+            foreach (Form form in this.MdiChildren)
             {
-                if (form is SmartFrameWork.FrameWorkEditor)
+                if (form is FrameWorkEditor)
                 {
-                    if (((SmartFrameWork.FrameWorkEditor)form).SaveSupport)
+                    if (((FrameWorkEditor)form).SaveSupport)
                     {
-                        ((SmartFrameWork.FrameWorkEditor)form).Save();
-                        ((SmartFrameWork.FrameWorkEditor)form).Dirty = false;
+                        ((FrameWorkEditor)form).Save();
+                        ((FrameWorkEditor)form).Dirty = false;
                     }
                 }
                 form.Close();
@@ -688,12 +705,14 @@ namespace SmartFrameWork
 
         private void FrameWorkWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.ValidateAction();
-            if (ExitAction != null)
-            {
-                ActionContext context = GetActionContext();
-                ExitAction.Excuete(context);
+            var result = MessageService.ShowQuestion("Do you want to exit?");
+            if (result == DialogResult.Cancel)
+            { 
+                e.Cancel = true;
+                return;
             }
+            Services.PropertyService.Set(nameof(ProjectManager.OpenedProjects), ProjectManager.OpenedProjects);
+            Services.PropertyService.Set(nameof(ProjectManager.RecentProjects), ProjectManager.RecentProjects);
         }
         private void FrameWorkWindow_MdiChildActivate(object sender, EventArgs e)
         {
@@ -703,7 +722,17 @@ namespace SmartFrameWork
                 //目前是空函数
                 view.ActiveEditorChanged();
             }
-        }       
+        }
+
+        private void FrameWorkWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //this.ValidateAction();
+            //if (ExitAction != null)
+            //{
+            //    ActionContext context = GetActionContext();
+            //    ExitAction.Excuete(context);
+            //}
+        }
     }
 
     public enum WindowSytle

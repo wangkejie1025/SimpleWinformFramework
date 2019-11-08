@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using SmartFrameWork.Utils;
 
-namespace SmartFrameWork
+namespace SmartFrameWork.Project
 {
     //用来管理打开的工程和最近打开的工程
     public class ProjectManager
@@ -22,11 +18,13 @@ namespace SmartFrameWork
             get { return openedProjects; }
             set { openedProjects = value; }
         }
+        //在ProjectManager_ProjectCreated事件中添加路径
         public static void AddOpenedProjects(string project)
         {
             System.IO.FileInfo file = new System.IO.FileInfo(project);
             if (!OpenedProjects.Contains(file.FullName))
                 OpenedProjects.Add(file.FullName);
+            Services.PropertyService.Set(nameof(OpenedProjects), OpenedProjects);
 
         }
         public static void AddRecentProjects(string project)
@@ -40,24 +38,7 @@ namespace SmartFrameWork
             {
                 ProjectManager.RecentProjects.RemoveAt(ProjectManager.RecentProjects.Count - 1);
             }
-        }
-        //在loadAction中定义
-        public static void Init()
-        {
-            //ProjectManager.RecentProjects = Parse(Configuration.file);
-            //ProjectManager.OpenedProjects = Parse(Configuration.openedProjectfile);
-            if (ProjectManager.RecentProjects.Count > 10)
-            {
-                ProjectManager.RecentProjects.RemoveRange(10, ProjectManager.RecentProjects.Count - 10);
-            }
-        }
-        /// <summary>
-        /// 把最近工程的路径保存到xml文件中
-        /// </summary>
-        public static void Save()
-        {
-            //Save(Configuration.file, ProjectManager.RecentProjects);
-            //Save(Configuration.openedProjectfile, ProjectManager.OpenedProjects);
+            Services.PropertyService.Set(nameof(RecentProjects), RecentProjects);
         }
         //config保存的是list<string>的路径
         public static void Save(string fileName, List<string> config)
@@ -72,7 +53,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                SmartFrameWork.Services.LoggingService.Error(ex);
+                Services.LoggingService.Error(ex);
             }
         }
 
@@ -90,15 +71,15 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                SmartFrameWork.Services.LoggingService.Error(ex);
+                Services.LoggingService.Error(ex);
             }
             return new List<string>();
         }
     }
     [Serializable]
-    public class Project : FolderInfo, IProject
+    public class ProjectInfo : FolderInfo, IProject
     {
-        public Project()
+        public ProjectInfo()
         {
             this.Image = "folder_close.png";
             this.SelectionImage = "folder_open.png";
@@ -121,7 +102,7 @@ namespace SmartFrameWork
             }
         }
         private string extension = "prj";
-        [SmartFrameWork.Group("Property")]
+        [Group("Property")]
         [System.ComponentModel.ReadOnly(true)]
         [System.Xml.Serialization.XmlIgnore]
         public string Extension
@@ -129,16 +110,16 @@ namespace SmartFrameWork
             get { return extension; }
             set { extension = value; }
         }
-        string comment;
-        [SmartFrameWork.Group("Property")]
-        public string Comment
+        string description;
+        [Group("Property")]
+        public string Description
         {
-            get { return comment; }
-            set { comment = value; }
+            get { return description; }
+            set { description = value; }
         }
 
         [System.Xml.Serialization.XmlIgnore]
-        [SmartFrameWork.Group("Location")]
+        [Group("Location")]
         [System.ComponentModel.ReadOnly(true)]
         public string ProjectFileName
         {
@@ -181,30 +162,27 @@ namespace SmartFrameWork
             this.SelectionImage = "folder_open.png";
         }
 
-        private string filter;
-        [SmartFrameWork.Group("Basic")]
-        [SmartFrameWork.Text("Filter")]
-        [System.ComponentModel.ReadOnly(true)]
-        public virtual string Filter
-        {
-            get { return filter; }
-            set { filter = value; }
-        }
-
         private string name;
-        [SmartFrameWork.Group("Location")]
-        [SmartFrameWork.Text("Foler")]
+        [Group("Location")]
+        [Text("Foler")]
         [System.ComponentModel.ReadOnly(true)]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
-
+        private string filter;
+        [Group("Basic")]
+        [System.ComponentModel.ReadOnly(true)]
+        public virtual string Filter
+        {
+            get { return filter; }
+            set { filter = value; }
+        }
         private System.IO.DirectoryInfo dirInfo;
         private string path;
-        [SmartFrameWork.Group("Location")]
-        [SmartFrameWork.Text("Path")]
+        [Group("Location")]
+        [Text("Path")]
         [System.ComponentModel.ReadOnly(true)]
         [System.Xml.Serialization.XmlIgnore]
         [System.ComponentModel.Browsable(false)]
@@ -274,9 +252,9 @@ namespace SmartFrameWork
                 System.IO.Directory.CreateDirectory(folder.Path);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                Services.LoggingService.Error(ex.Message);
             }
             return false;
         }
@@ -361,11 +339,9 @@ namespace SmartFrameWork
         }
 
         private string name;
-        [SmartFrameWork.Group("Location")]
-        [SmartFrameWork.Text("File Name")]
-        // [System.ComponentModel.Browsable(false)]
+        [Group("Location")]
+        [Text("File Name")]
         [System.ComponentModel.ReadOnly(true)]
-        //[System.ComponentModel.DescriptionAttribute("Social Security Number of the customer")] 
         public string Name
         {
             get { return name; }
@@ -375,8 +351,8 @@ namespace SmartFrameWork
 
         private System.IO.DirectoryInfo dirInfo;
         private string path;
-        [SmartFrameWork.Group("Location")]
-        [SmartFrameWork.Text("Path")]
+        [Group("Location")]
+        [Text("Path")]
         [System.ComponentModel.ReadOnly(true)]
         [System.Xml.Serialization.XmlIgnore]
         [System.ComponentModel.Browsable(false)]
@@ -406,7 +382,7 @@ namespace SmartFrameWork
 
         [System.Xml.Serialization.XmlIgnore]
         [System.ComponentModel.ReadOnly(true)]
-        [SmartFrameWork.Group("Location")]
+        [Group("Location")]
         public string Extension
         {
             get
@@ -419,7 +395,7 @@ namespace SmartFrameWork
 
         [System.Xml.Serialization.XmlIgnore]
         [System.ComponentModel.ReadOnly(true)]
-        [SmartFrameWork.Group("Location")]
+        [Group("Location")]
         public string FullName
         {
             get
@@ -458,9 +434,8 @@ namespace SmartFrameWork
         }
     }
 
-
     [Serializable]
-    public class Element : SmartFrameWork.Utils.Observable, SmartFrameWork.ISelectable
+    public class Element : Utils.Observable, ISelectable
     {
         [System.ComponentModel.Browsable(false)]
         [System.Xml.Serialization.XmlIgnore]
@@ -487,8 +462,8 @@ namespace SmartFrameWork
         }
 
         private string text;
-        [SmartFrameWork.Group("Basic")]
-        [SmartFrameWork.Text("Name")]
+        [Group("Basic")]
+        [Text("Name")]
         [System.ComponentModel.ReadOnly(true)]
         public virtual string Text
         {
@@ -664,41 +639,24 @@ namespace SmartFrameWork
         }
     }
 
-    public interface IModule : SmartFrameWork.ISelectable
+    public interface IModule : ISelectable
     {
     }
 
-    public interface IModuleFolder : SmartFrameWork.ISelectable
+    public interface IModuleFolder : ISelectable
     {
     }
 
-    public interface IFolder : SmartFrameWork.ISelectable
+    public interface IFolder : ISelectable
     {
     }
 
-    public interface IFile : SmartFrameWork.ISelectable
+    public interface IFile : ISelectable
     {
     }
 
-    public interface IProject : SmartFrameWork.ISelectable
+    public interface IProject : ISelectable
     {
-        string Name { get; set; }
-        string ProjectFileName { get; }
-        string Comment { get; set; }
-
-    }
-    public interface IA2LFile : SmartFrameWork.ISelectable
-    {
-
-    }
-    public interface IHexFile : SmartFrameWork.ISelectable
-    {
-
-    }
-    public interface IDataBaseFile : SmartFrameWork.ISelectable
-    {
-        string HexFilePath { get; set; }
-        string A2LfilePath { get; set; }
-        string Comment { get; set; }
+        string Description { get; set; }        
     }
 }

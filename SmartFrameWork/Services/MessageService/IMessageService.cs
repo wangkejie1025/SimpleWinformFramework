@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows.Forms;
 
 namespace SmartFrameWork.Services
 {
@@ -10,6 +8,8 @@ namespace SmartFrameWork.Services
     /// </summary>
     public interface IMessageService
     {
+        DialogResult ShowQuestion(string message);
+        void ShowInfo(string message);
         /// <summary>
         /// Shows an error.
         /// </summary>

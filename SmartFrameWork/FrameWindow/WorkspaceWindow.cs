@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace SmartFrameWork
 {
     /// <summary>
     /// use for project window
     /// </summary>
-    public class WorkspaceWindow : SmartFrameWork.FrameWorkWindow
+    public class WorkspaceWindow : FrameWorkWindow
     {
         //多了一个projet管理的workspace侧边栏
         private string projectExtension = "prj";
@@ -22,38 +15,22 @@ namespace SmartFrameWork
             set { projectExtension = value; }
         }
 
-        public override SmartFrameWork.ActionContext GetActionContext()
+        public override ActionContext GetActionContext()
         {
             ActionContext context = base.GetActionContext();
-            context.Project = Workspace.Active;
+            //context.Project = Workspace.Active;
+            //context.Project =(Project.IProject) context.Selection;
             return context;
         }
 
         public WorkspaceWindow()
         {
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(WorkspaceWindow_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(WorkspaceWindow_FormClosing);
         }
 
-        void WorkspaceWindow_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        void WorkspaceWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //SmartFrameWork.Configuration.Save();
-            //SmartFrameWork.IProject prj = Workspace.Active;
-
-            //if (prj != null)
-            //{
-            //    DialogResult result = MessageBox.Show("Do you want to save the project before exit?", "Information", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            //    if (result == DialogResult.Yes)
-            //    {
-            //        SmartFrameWork.ProjectFile file = new SmartFrameWork.ProjectFile();
-            //        file.Project = prj as SmartFrameWork.Project;
-            //        file.Project.Extension = ProjectExtension;
-            //        file.Save(file.Project.ProjectFileName);
-            //    }
-            //    if (result == DialogResult.Cancel)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //}
+           
         }
     }
 }

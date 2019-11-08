@@ -1,0 +1,3 @@
+System.NotFiniteNumberException: 遇到的数字不是有限的数量。
+   在 MainApp.MainApp.Main() 位置 F:\博瑞软件\SimpleFrameWrok\MainApp\MainApp.cs:行号 61
+2019-10-28 16:34:30,374 [line:39 method:Info ] INFO  SmartFrameWork.Services.Log4NetService [(null)] - Application shutdown

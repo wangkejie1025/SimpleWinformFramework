@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DevExpress.XtraGrid;
 using Microsoft.Win32;
+using DevExpress.XtraNavBar;
 
 namespace SmartFrameWork.Utils
 {
@@ -40,6 +41,41 @@ namespace SmartFrameWork.Utils
                 return keyCom.GetValueNames();
             }
             return new string[0];
+        }
+        /// <summary>
+        /// 创建barGroup
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="caption">标题</param>
+        private DevExpress.XtraNavBar.NavBarGroup CreatNavigationBarGroup(NavBarControl navBarControl,string name, string caption)
+        {
+            DevExpress.XtraNavBar.NavBarGroup navBarGroup = new DevExpress.XtraNavBar.NavBarGroup();
+            navBarGroup.Name = name;
+            navBarGroup.Caption = caption;
+            navBarGroup.Expanded = true;
+            navBarControl.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
+           navBarGroup});
+            return navBarGroup;
+        }
+        /// <summary>
+        /// 创建barGroup的子项
+        /// </summary>
+        /// <param name="navBarGroup">父group</param>
+        /// <param name="name">名称</param>
+        /// <param name="caption">标题</param>
+        private void CreatNavigationBarItem(NavBarControl navBarControl, NavBarGroup navBarGroup, string name, string caption, string SmallImageIndex,Action<object, NavBarLinkEventArgs> action)
+        {
+            DevExpress.XtraNavBar.NavBarItem navBarItem = new DevExpress.XtraNavBar.NavBarItem();
+            navBarItem.Name = name;
+            navBarItem.Caption = caption;
+            navBarItem.SmallImageIndex = int.Parse(SmallImageIndex);
+            navBarItem.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(action);
+            //把barItem加入到ItemGroup中
+            navBarGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
+           new NavBarItemLink(navBarItem)});
+            //把barItem加入到navBarControl里
+            navBarControl.Items.AddRange(new DevExpress.XtraNavBar.NavBarItem[] {
+           navBarItem});
         }
     }
 }

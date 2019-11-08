@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using DevExpress.LookAndFeel;
 using SmartFrameWork.Services;
 using SmartFrameWork;
 using SmartFrameWork.Views;
+using SmartFrameWork.Project;
+using MainApp.ProjectElement;
+using SmartFrameWork.Utils;
 
 namespace MainApp
 {
@@ -21,14 +22,11 @@ namespace MainApp
 
             SetSkin("DevExpress Style");
 
-            // Set the root path of our application. ICSharpCode.Core looks for some other
             // paths relative to the application root:
             // "data/resources" for language resources, "data/options" for default options
             FileUtility.ApplicationRootPath = Application.StartupPath;
 
             // CoreStartup is a helper class making starting the Core easier.
-            // The parameter is used as the application name, e.g. for the default title of
-            // MessageService.ShowMessage() calls.
             //if coreStartup.PropertiesName not set,PropertiesName is mainApp app+xml
             CoreStartup coreStartup = new CoreStartup("mainApp")
             {
@@ -42,19 +40,25 @@ namespace MainApp
             //two file flod data and config in Application.StartupPath，winform location will save in config direction
             coreStartup.StartCoreServices();
 
-            ////可以使用resx文件实现多语言
-            using (FrameWorkWindow mainWin = new FrameWorkWindow())
+            //注册project对象相关的类型
+            ProjectNaturePluginManager.Plugins.Add(new BasicProjectNaturePlugin());
+            ProjectNaturePluginManager.Plugins.Add(new CoreProjectNaturePlugin());
+            ProjectNaturePluginManager.Plugins.Add(new SpecificProjectNaturePlugin());
+            //可以使用resx文件实现多语言,如果要添加prjectView，需使用WorkspaceWindow类
+            using (FrameWorkWindow mainWin = new WorkspaceWindow())
             {
-                mainWin.Text = "mainApp";
+                mainWin.SuspendLayout();
+                mainWin.Text = "myCompany FCT";
                 mainWin.Icon = Properties.Resources.App;
-                //CreateView
+               
                 CreateView(mainWin);
-                //Create menu
+           
                 CreateMenu(mainWin);
-                //Create toolbar 
+ 
                 CreateToolBar(mainWin);
-                //add loadAction
-                mainWin.LoadAction = new myFormsApplication.Action.LoadAction();
+
+                //mainWin.LoadAction = new myFormsApplication.Action.LoadAction();
+                mainWin.LoadAction =new  ProjectLoadAction();
                 mainWin.ResumeLayout();
                 try
                 {
@@ -67,7 +71,6 @@ namespace MainApp
                 }
                 finally
                 {
-                    //Save changed properties
                     PropertyService.Save();
                     LoggingService.Info("Application shutdown");
                 }
@@ -77,17 +80,29 @@ namespace MainApp
         {
             DevExpress.Skins.SkinManager.EnableFormSkins();
             DevExpress.UserSkins.BonusSkins.Register();
-            //"DevExpress Style" "Office 2010 Blue"
             UserLookAndFeel.Default.SetSkinStyle(skinName);
         }
         private static void CreateView(FrameWorkWindow mainWin)
         {
+            ProjectView projectView = new ProjectView
+            {
+                Name = ProjectView.NAME
+            };
+            mainWin.AddView(projectView, DevExpress.XtraBars.Docking.DockingStyle.Left);
+            mainWin.AddViewCreator(new ProjectViewCreator());
             ConsoleView consoleView = new ConsoleView
             {
                 Name = ConsoleView.NAME
             };
             mainWin.AddView(consoleView, DevExpress.XtraBars.Docking.DockingStyle.Bottom);
             mainWin.AddViewCreator(new ConsoleViewCreator());
+
+            PropertyView propertyView = new PropertyView()
+            {
+                Name = PropertyView.NAME
+            };
+            mainWin.AddView(propertyView, DevExpress.XtraBars.Docking.DockingStyle.Right);
+            mainWin.AddViewCreator(new PropertyViewCreator());
         }
         private static void CreateMenu(FrameWorkWindow mainWin)
         {
@@ -110,16 +125,23 @@ namespace MainApp
                 //index属性暂时还未起作用
                 Index = 1
             };
-            ActionGroup open = new ActionGroup
-            {
-                Text = "&Open"
-            };
-            fileMenu.Add(open);
-            fileMenu.Add(new SaveAction());
-            fileMenu.Add(new SaveAllAction());
-            fileMenu.Add(new CloseAction());
-            fileMenu.Add(new CloseAllAction());
+            ProjectDescriptorManager manager = new ProjectDescriptorManager();
+            IProjectDescriptor descriptor = new ProjectDescriptor();
+            manager.ProjectDescriptors.Add(descriptor);
+            fileMenu.Add(new NewProjectAction(manager)).BeginGroup = true;
+            fileMenu.Add(new OpenProjectAction(descriptor.Name, descriptor.Extension));
+            fileMenu.Add(new SaveProjectAction(descriptor.Extension));
+            fileMenu.Add(new CloseProjectAction());
+            mainWin.AddToolBarGroup(fileMenu);
+
+            RecentProjectsAction recentProject = new RecentProjectsAction();
+            recentProject.OpenAction = new OpenRecentProjectAction();
+            fileMenu.Add(recentProject).BeginGroup = true;
+            fileMenu.Add(new ExitAction());
+            //窗体的关闭事件
+            mainWin.ExitAction = new ExitAction();
             mainWin.AddMenuGroup(fileMenu);
+
         }
         private static void CreateViewMenuItem(FrameWorkWindow mainWin)
         {
@@ -137,13 +159,16 @@ namespace MainApp
             {
                 Text = "&Window"
             };
-            windowMenu.Add(new ArrangeIconAction());
+            windowMenu.Add(new WindowMDIAction());
+            windowMenu.Add(new WindowTabbedAction());
+            windowMenu.Add(new ArrangeIconAction()).BeginGroup = true;
             windowMenu.Add(new CascadeWindowAction());
             windowMenu.Add(new TileHWindowAction());
             windowMenu.Add(new TileVWindowAction());
+            windowMenu.Add(new MdiListAction()).BeginGroup = true;
             windowMenu.Add(new CloseAllAction());
-            windowMenu.Add(new myFormsApplication.Action.NewCofigFormAction());
-            windowMenu.Add(new MdiListAction());
+            //windowMenu.Add(new myFormsApplication.Action.NewCofigFormAction());
+            
             mainWin.AddMenuGroup(windowMenu);
         }
         private static void CreateHelpMenuItem(FrameWorkWindow mainWin)
@@ -160,10 +185,7 @@ namespace MainApp
         }
         private static void CreateToolBar(FrameWorkWindow mainWin)
         {
-            ActionGroup toolBarFileGroup = new ActionGroup();
-            toolBarFileGroup.Add(new OpenFileAction());
-            toolBarFileGroup.Add(new SaveAllAction());
-            mainWin.AddToolBarGroup(toolBarFileGroup);
+
         }
         //菜单栏和工具栏共享的Action
         private static void CreateToolBarItemFromMenuItem(FrameWorkWindow mainWin, ActionGroup menu)

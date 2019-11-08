@@ -63,7 +63,10 @@ namespace SmartFrameWork.Services
             LoggingService.Error(message);
             ServiceManager.Instance.MessageService.ShowError(message);
         }
-
+        public static DialogResult ShowQuestion(string message)
+        {
+            return ServiceManager.Instance.MessageService.ShowQuestion(message);
+        }
         /// <summary>
         /// Shows an error using a message box.
         /// <paramref name="formatstring"/> is first passed through the

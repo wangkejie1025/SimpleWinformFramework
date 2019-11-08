@@ -6,11 +6,8 @@ using System.Text;
 namespace SmartFrameWork
 {
     public class XMLParser<T>
-    {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+    {     
         private Type[] types;
-
         public XMLParser(Type[] types)
         {
             this.types = types;
@@ -33,7 +30,7 @@ namespace SmartFrameWork
             catch (Exception ex)
             {
                 System.Console.WriteLine("Exception:"+ex.ToString());
-                logger.Error(ex);
+                Services.LoggingService.Error(ex);
             }
         }
 
@@ -53,7 +50,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                Services.LoggingService.Error(ex);
             }
             return default(T);
         }

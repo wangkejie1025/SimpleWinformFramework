@@ -9,13 +9,7 @@ namespace SmartFrameWork
 {
     public class XmlSerializer
     {
-        private log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public log4net.ILog Logger
-        {
-            get { return logger; }
-            set { logger = value; }
-        }
-
+   
         private Dictionary<string, Type> types = new Dictionary<string, Type>();
         public Dictionary<string, Type> Types
         {
@@ -34,6 +28,7 @@ namespace SmartFrameWork
 
         protected void Serialize(XmlDocument doc, XmlElement parent, object data)
         {
+            //显示projectFile
             XmlElement ele = doc.CreateElement(data.GetType().Name);
             parent.AppendChild(ele);
             Type type = data.GetType();
@@ -57,7 +52,7 @@ namespace SmartFrameWork
             else
             {
 
-                foreach (System.Reflection.PropertyInfo info in type.GetProperties())
+                foreach (PropertyInfo info in type.GetProperties())
                 {
                     try
                     {
@@ -110,7 +105,7 @@ namespace SmartFrameWork
                     }
                     catch (Exception ex)
                     {
-
+                        Services.LoggingService.Error(ex);
                     }
                 }
             }
@@ -205,7 +200,7 @@ namespace SmartFrameWork
             }
             catch (Exception ex)
             {
-                logger.Error("属性" + info.Name + "错误", ex);
+                Services.LoggingService.Error("属性" + info.Name + "错误", ex);
             }
         }
 

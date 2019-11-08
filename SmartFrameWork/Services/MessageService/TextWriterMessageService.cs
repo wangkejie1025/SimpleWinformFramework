@@ -20,12 +20,18 @@ namespace SmartFrameWork.Services
                 throw new ArgumentNullException("writer");
             this.writer = writer;
         }
+        public void ShowInfo(string message)
+        {
 
+        }
         public void ShowError(string message)
         {
             writer.WriteLine(message);
         }
-
+        public System.Windows.Forms.DialogResult ShowQuestion(string message)
+        {
+            return System.Windows.Forms.DialogResult.OK;
+        }
         public void ShowException(Exception ex, string message)
         {
             if (message != null)

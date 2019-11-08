@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SmartFrameWork
+﻿namespace SmartFrameWork
 {
     public class  WindowTabbedAction : Action
     {
         public WindowTabbedAction()
         {
             this.Text = "Tabbed Style";
-            this.Icon = "hwindow.png";
+            this.Icon = "tabbedwindow.png";
         }
 
         public WindowTabbedAction(string str)
@@ -18,7 +13,7 @@ namespace SmartFrameWork
             this.Text = str;
         }
 
-        public override void Perform(SmartFrameWork.ActionContext context)
+        public override void Perform(ActionContext context)
         {
             context.Window.WindowStyle = WindowSytle.Tabbed;
         }

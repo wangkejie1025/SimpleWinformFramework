@@ -87,7 +87,7 @@ namespace SmartFrameWork.Services
 #else 
         static ILoggingService loggingService = new Log4NetService();
 #endif
-        static IMessageService messageService = new MessageBoxMessageService();
+        static IMessageService messageService = new myMessageBox();
         public override ILoggingService LoggingService
         {
             get { return loggingService; }

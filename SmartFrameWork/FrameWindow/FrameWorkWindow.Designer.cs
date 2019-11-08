@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.barManager = new DevExpress.XtraBars.BarManager();
+            this.components = new System.ComponentModel.Container();
+            this.barManager = new DevExpress.XtraBars.BarManager(this.components);
             this.MainMenu = new DevExpress.XtraBars.Bar();
             this.Statusbar = new DevExpress.XtraBars.Bar();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.dockManager = new DevExpress.XtraBars.Docking.DockManager();
-            this.imageList = new System.Windows.Forms.ImageList();
-            this.xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager();
+            this.dockManager = new DevExpress.XtraBars.Docking.DockManager(this.components);
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.xtraTabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager)).BeginInit();
@@ -86,28 +87,32 @@
             this.barDockControlTop.CausesValidation = false;
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Size = new System.Drawing.Size(282, 22);
+            this.barDockControlTop.Manager = this.barManager;
+            this.barDockControlTop.Size = new System.Drawing.Size(282, 20);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 230);
-            this.barDockControlBottom.Size = new System.Drawing.Size(282, 23);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 229);
+            this.barDockControlBottom.Manager = this.barManager;
+            this.barDockControlBottom.Size = new System.Drawing.Size(282, 24);
             // 
             // barDockControlLeft
             // 
             this.barDockControlLeft.CausesValidation = false;
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 22);
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 208);
+            this.barDockControlLeft.Location = new System.Drawing.Point(0, 20);
+            this.barDockControlLeft.Manager = this.barManager;
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 209);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(282, 22);
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 208);
+            this.barDockControlRight.Location = new System.Drawing.Point(282, 20);
+            this.barDockControlRight.Manager = this.barManager;
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 209);
             // 
             // dockManager
             // 
@@ -145,6 +150,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrameWorkWindow_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrameWorkWindow_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrameWorkWindow_FormClosed);
             this.Load += new System.EventHandler(this.FrameWorkWindow_Load);
             this.MdiChildActivate += new System.EventHandler(this.FrameWorkWindow_MdiChildActivate);
             this.Shown += new System.EventHandler(this.FrameWorkWindow_Shown);
@@ -152,6 +158,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

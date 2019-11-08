@@ -40,19 +40,37 @@
     <AssemblyOriginatorKeyFile>smartFrameWorkKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraBars.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraGrid.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraNavBar.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.BonusSkins.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.ExpressApp.Win.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.Base.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v18.1.Core, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v18.1.Export, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v18.1.Core, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v18.1.Core, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v18.1.Core, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Log4Net_Test\Log4Net_Test\bin\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -80,9 +98,16 @@
     <Compile Include="Action\Window\TileVWindowAction.cs" />
     <Compile Include="Action\Window\WindowMDIAction.cs" />
     <Compile Include="Action\Window\WindowTabbedAction.cs" />
+    <Compile Include="Attribute\DataElementAttribute.cs" />
     <Compile Include="Attribute\TextAttribute.cs" />
     <Compile Include="CoreException.cs" />
     <Compile Include="CoreStartup.cs" />
+    <Compile Include="Editor\DataGridEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor\DataGridEditor.Designer.cs">
+      <DependentUpon>DataGridEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrameWindow\FrameWorkEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,18 +117,42 @@
     <Compile Include="FrameWindow\WorkspaceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Services\FileUtility\FileNameEventHandler.cs" />
-    <Compile Include="Services\FileUtility\FileUtility.cs" />
+    <Compile Include="Interface\Interface.cs" />
+    <Compile Include="Model\DataElement.cs" />
+    <Compile Include="Model\DataElementConverter.cs" />
+    <Compile Include="Model\DataElementManager.cs" />
+    <Compile Include="Model\Repository.cs" />
+    <Compile Include="Project\Action\CloseProjectAction.cs" />
+    <Compile Include="Project\Action\LoadProjectAction.cs" />
+    <Compile Include="Project\Action\NewProjectAction.cs" />
+    <Compile Include="Project\Action\OpenProjectAction.cs" />
+    <Compile Include="Project\Action\OpenRecentProjectAction.cs" />
+    <Compile Include="Project\Action\SaveProjectAction.cs" />
+    <Compile Include="Project\BasicProjectNaturePlugin.cs" />
+    <Compile Include="Project\CoreProjectNaturePlugin.cs" />
+    <Compile Include="Project\IProjectDescriptor.cs" />
+    <Compile Include="Project\NewProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project\NewProjectForm.Designer.cs">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project\ProjectFile.cs" />
+    <Compile Include="Project\ProjectInfo.cs" />
+    <Compile Include="Utils\FileUtility\FileNameEventHandler.cs" />
+    <Compile Include="Utils\FileUtility\FileUtility.cs" />
     <Compile Include="Services\LoggingService\DebugTextWriter.cs" />
-    <Compile Include="Services\MessageService\MessageBoxMessageService.cs" />
+    <Compile Include="Services\MessageService\MessageBox.cs" />
     <Compile Include="Services\PropertyService\Properties.cs" />
     <Compile Include="Services\PropertyService\PropertyChangedEvent.cs" />
     <Compile Include="Services\PropertyService\PropertyService.cs" />
     <Compile Include="Services\ResourceService\ResourceService.cs" />
     <Compile Include="Utils\CallbackOnDispose.cs" />
     <Compile Include="Utils\ControlSetting.cs" />
+    <Compile Include="Utils\DataHandle.cs" />
     <Compile Include="Utils\FormLocationHelper.cs" />
-    <Compile Include="Utils\XMLParser.cs" />
+    <Compile Include="Utils\ListExtension.cs" />
+    <Compile Include="Utils\XmlParser.cs" />
     <Compile Include="Utils\XmlSerializer.cs" />
     <Compile Include="Views\ConsoleView.cs">
       <SubType>UserControl</SubType>
@@ -132,7 +181,7 @@
     <Compile Include="FrameWindow\PlatForm.cs" />
     <Compile Include="FrameWindow\Workspace.cs" />
     <Compile Include="Project\Project.cs" />
-    <Compile Include="Services\LoggingService\Log4NetService.cs" />
+    <Compile Include="Services\LoggingService\Log4Net.cs" />
     <Compile Include="Services\LoggingService\TextWriterLoggingService.cs" />
     <Compile Include="Services\LoggingService\ILoggingService.cs" />
     <Compile Include="Services\LoggingService\LoggingService.cs" />
@@ -150,11 +199,29 @@
     <Compile Include="Views\Console.cs" />
     <Compile Include="Views\IViewCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\NaviBarView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\NaviBarView.Designer.cs">
+      <DependentUpon>NaviBarView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\NavigationView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\NavigationView.Designer.cs">
       <DependentUpon>NavigationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ProjectView.Designer.cs">
+      <DependentUpon>ProjectView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PropertyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PropertyView.Designer.cs">
+      <DependentUpon>PropertyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectionManager.cs" />
   </ItemGroup>
@@ -164,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrameWindow\FullScreenWindow.resx">
       <DependentUpon>FullScreenWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project\NewProjectForm.resx">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ConsoleView.resx">
       <DependentUpon>ConsoleView.cs</DependentUpon>
@@ -175,6 +245,15 @@
       <DependentUpon>FrameWorkWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Views\NaviBarView.resx">
+      <DependentUpon>NaviBarView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProjectView.resx">
+      <DependentUpon>ProjectView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PropertyView.resx">
+      <DependentUpon>PropertyView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="icons\console.png" />
@@ -192,6 +271,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="smartFrameWorkKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\property.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\folder_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\addproject.png" />
+    <EmbeddedResource Include="icons\closeproject.png" />
+    <EmbeddedResource Include="icons\new.png" />
+    <EmbeddedResource Include="icons\openproject.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icons\mdiwindow.png" />
+    <EmbeddedResource Include="icons\tabbedwindow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

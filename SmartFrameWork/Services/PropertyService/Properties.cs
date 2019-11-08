@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Collections;
@@ -160,12 +159,12 @@ namespace SmartFrameWork.Services
                 }
             }
         }
-
-        ArrayList ReadArray(XmlReader reader)
+        //这里就需要改造对象了
+        IList<string> ReadArray(XmlReader reader)
         {
             if (reader.IsEmptyElement)
-                return new ArrayList(0);
-            ArrayList l = new ArrayList();
+                return new List<string>();
+            List<string> temp = new List<string>();
             while (reader.Read())
             {
                 switch (reader.NodeType)
@@ -173,15 +172,15 @@ namespace SmartFrameWork.Services
                     case XmlNodeType.EndElement:
                         if (reader.LocalName == "Array")
                         {
-                            return l;
+                            return temp;
                         }
                         break;
                     case XmlNodeType.Element:
-                        l.Add(reader.HasAttributes ? reader.GetAttribute(0) : null);
+                        temp.Add((reader.HasAttributes ? reader.GetAttribute(0) : null));
                         break;
                 }
             }
-            return l;
+            return temp;
         }
 
         public void WriteProperties(XmlTextWriter writer)
@@ -197,7 +196,8 @@ namespace SmartFrameWork.Services
                     ((Properties)val).WriteProperties(writer);
                     writer.WriteEndElement();
                 }
-                else if (val is Array || val is ArrayList)
+                //else if (val is Array || val is ArrayList)
+                else if (val is IList<string>)
                 {
                     writer.WriteStartElement("Array");
                     writer.WriteAttributeString("name", entry.Key);
@@ -292,9 +292,10 @@ namespace SmartFrameWork.Services
                 }
                 properties[property] = o; // store for future look up
             }
-            else if (o is ArrayList && typeof(T).IsArray)
+            //else if (o is ArrayList && typeof(T).IsArray)
+            else if(o is IList<T>)
             {
-                ArrayList list = (ArrayList)o;
+                IList<T> list = (IList<T>)o;
                 Type elementType = typeof(T).GetElementType();
                 Array arr = System.Array.CreateInstance(elementType, list.Count);
                 TypeConverter c = TypeDescriptor.GetConverter(elementType);

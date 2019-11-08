@@ -28,11 +28,12 @@
         /// </summary>
         private new void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.barClear = new System.Windows.Forms.ToolStripMenuItem();
             this.barSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer = new System.Windows.Forms.Timer();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,35 +42,36 @@
             this.textBox.BackColor = System.Drawing.Color.White;
             this.textBox.ContextMenuStrip = this.contextMenuStrip;
             this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox.Location = new System.Drawing.Point(0, 27);
+            this.textBox.Location = new System.Drawing.Point(0, 20);
             this.textBox.Margin = new System.Windows.Forms.Padding(4);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox.Size = new System.Drawing.Size(150, 123);
+            this.textBox.Size = new System.Drawing.Size(150, 130);
             this.textBox.TabIndex = 0;
             // 
             // contextMenuStrip
             // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.barClear,
             this.barSaveAs});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(153, 74);
+            this.contextMenuStrip.Size = new System.Drawing.Size(211, 80);
             this.contextMenuStrip.Text = "contextMenuStrip1";
             // 
             // barClear
             // 
             this.barClear.Name = "barClear";
-            this.barClear.Size = new System.Drawing.Size(152, 24);
+            this.barClear.Size = new System.Drawing.Size(210, 24);
             this.barClear.Text = "&Clear";
             this.barClear.Click += new System.EventHandler(this.barClear_Click);
             // 
             // barSaveAs
             // 
             this.barSaveAs.Name = "barSaveAs";
-            this.barSaveAs.Size = new System.Drawing.Size(152, 24);
+            this.barSaveAs.Size = new System.Drawing.Size(210, 24);
             this.barSaveAs.Text = "&Save As";
             this.barSaveAs.Click += new System.EventHandler(this.barSaveAs_Click);
             // 

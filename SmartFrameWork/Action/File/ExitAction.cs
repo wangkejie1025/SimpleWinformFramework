@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using SmartFrameWork.Project;
 
 namespace SmartFrameWork
 {
@@ -18,10 +15,11 @@ namespace SmartFrameWork
         {
             this.Text = text;
         }
-
-        public override void Perform(SmartFrameWork.ActionContext context)
-        {
+        //在系统退出的时候进行保存
+        public override void Perform(ActionContext context)
+        {         
             context.Window.Close();
+           // ProjectManager.Save();
         }
     }
 }

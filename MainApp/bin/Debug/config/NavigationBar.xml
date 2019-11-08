@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<NanvigationBarItemList>
+  <BarGroup Title="测试窗体">  
+   <BarSubItems>
+    <BarSubItem ImageIndex="4" className="AutoTest">工况点选择</BarSubItem>
+    <BarSubItem ImageIndex="3" className="DataBaseChoose">数据库选择</BarSubItem>
+    <BarSubItem ImageIndex="1" className="ManualTest">手动测试</BarSubItem>
+    <BarSubItem ImageIndex="0" className="AutoTest">自动测试</BarSubItem>
+   </BarSubItems>
+  </BarGroup>
+  <BarGroup Title="参数配置窗体">
+    <BarSubItems>
+      <BarSubItem ImageIndex="5" className=" ">油量修正</BarSubItem>
+      <BarSubItem ImageIndex="6" className=" ">回油MAP补偿</BarSubItem>
+      <BarSubItem ImageIndex="7" className=" ">测试过程参数配置</BarSubItem>
+    </BarSubItems>
+  </BarGroup>
+</NanvigationBarItemList>
